@@ -1,24 +1,20 @@
 'use client';
 
-import { useCallback, useState } from "react";
-import { toast } from "react-hot-toast";
+import { useCallback, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
-import { 
-  FieldValues, 
-  SubmitHandler, 
-  useForm
-} from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
-import { AiFillGithub } from "react-icons/ai";
-import { useRouter } from "next/navigation";
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { FcGoogle } from 'react-icons/fc';
+import { AiFillGithub } from 'react-icons/ai';
+import { useRouter } from 'next/navigation';
 
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import useLoginModal from "@/app/hooks/useLoginModal";
+import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
 
-import Modal from "./Modal";
-import Input from "../inputs/Input";
-import Heading from "../Heading";
-import Button from "../Button";
+import Modal from './Modal';
+import Input from '../inputs/Input';
+import Heading from '../Heading';
+import Button from '../Button';
 
 const LoginModal = () => {
   const router = useRouter();
@@ -26,28 +22,24 @@ const LoginModal = () => {
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { 
-    register, 
+  const {
+    register,
     handleSubmit,
-    formState: {
-      errors,
-    },
+    formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
     },
   });
-  
-  const onSubmit: SubmitHandler<FieldValues> = 
-  (data) => {
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    signIn('credentials', { 
-      ...data, 
+    signIn('credentials', {
+      ...data,
       redirect: false,
-    })
-    .then((callback) => {
+    }).then((callback) => {
       setIsLoading(false);
 
       if (callback?.ok) {
@@ -55,87 +47,90 @@ const LoginModal = () => {
         router.refresh();
         loginModal.onClose();
       }
-      
+
       if (callback?.error) {
         toast.error(callback.error);
       }
     });
-  }
+  };
 
   const onToggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
-  }, [loginModal, registerModal])
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
-      <Heading
-        title="Welcome back"
-        subtitle="Login to your account!"
-      />
+    <div className='flex flex-col gap-4'>
+      <Heading title='Bem vindo de volta' subtitle='Login na sua conta!' />
       <Input
-        id="email"
-        label="Email"
+        id='email'
+        label='Email'
         disabled={isLoading}
-        register={register}  
+        register={register}
         errors={errors}
         required
       />
       <Input
-        id="password"
-        label="Password"
-        type="password"
+        id='password'
+        label='Senha'
+        type='password'
         disabled={isLoading}
         register={register}
         errors={errors}
         required
       />
     </div>
-  )
+  );
 
   const footerContent = (
-    <div className="flex flex-col gap-4 mt-3">
+    <div className='flex flex-col gap-4 mt-3'>
       <hr />
-      <Button 
-        outline 
-        label="Continue with Google"
+      <Button
+        outline
+        label='Continuar com Google'
         icon={FcGoogle}
         onClick={() => signIn('google')}
       />
-      <Button 
-        outline 
-        label="Continue with Github"
+      <Button
+        outline
+        label='Continuar com Github'
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
-      <div className="
-      text-neutral-500 text-center mt-4 font-light">
-        <p>First time using Airbnb?
-          <span 
-            onClick={onToggle} 
-            className="
+      <div
+        className='
+      text-neutral-500 text-center mt-4 font-light'
+      >
+        <p>
+          Primeira vez?
+          <span
+            onClick={onToggle}
+            className='
               text-neutral-800
               cursor-pointer 
               hover:underline
-            "
-            > Create an account</span>
+            '
+          >
+            {' '}
+            Criar conta
+          </span>
         </p>
       </div>
     </div>
-  )
+  );
 
   return (
     <Modal
       disabled={isLoading}
       isOpen={loginModal.isOpen}
-      title="Login"
-      actionLabel="Continue"
+      title='Login'
+      actionLabel='Continuar'
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
     />
   );
-}
+};
 
 export default LoginModal;
