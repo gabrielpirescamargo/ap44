@@ -42,7 +42,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   return (
     <div className='relative'>
       <div className='flex flex-row items-center gap-3'>
-        {admUsers.includes(currentUser?.email) ? (
+        {admUsers.includes(currentUser?.email!) ? (
           <div
             onClick={onRent}
             className='
@@ -116,31 +116,31 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className='flex flex-col cursor-pointer'>
             {currentUser ? (
               <>
-                {!admUsers.includes(currentUser?.email) && (
+                {!admUsers.includes(currentUser?.email!) && (
                   <MenuItem
                     label='Histórico'
                     onClick={() => router.push('/trips')}
                   />
                 )}
-                {!admUsers.includes(currentUser?.email) && (
+                {!admUsers.includes(currentUser?.email!) && (
                   <MenuItem
                     label='Favoritos'
                     onClick={() => router.push('/favorites')}
                   />
                 )}
-                {admUsers.includes(currentUser?.email) && (
+                {admUsers.includes(currentUser?.email!) && (
                   <MenuItem
                     label='Reservas'
                     onClick={() => router.push('/reservations')}
                   />
                 )}
-                {admUsers.includes(currentUser?.email) && (
+                {admUsers.includes(currentUser?.email!) && (
                   <MenuItem
                     label='Estabelecimentos'
                     onClick={() => router.push('/properties')}
                   />
                 )}
-                {admUsers.includes(currentUser?.email) && (
+                {admUsers.includes(currentUser?.email!) && (
                   <MenuItem
                     label='Cadastrar estabelecimento'
                     onClick={rentModal.onOpen}
