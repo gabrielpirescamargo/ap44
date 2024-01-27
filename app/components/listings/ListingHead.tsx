@@ -31,7 +31,11 @@ const ListingHead: React.FC<ListingHeadProps> = ({
     <>
       <Heading
         title={title}
-        subtitle={`${location?.region}, ${location?.label}`}
+        subtitle={
+          id === '65b50cee5266f0496a2f0238'
+            ? 'Praia Grande, Aviação - SP'
+            : `${location?.region}, ${location?.label}`
+        }
       />
       <div
         className='

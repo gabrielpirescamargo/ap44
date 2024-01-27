@@ -4,6 +4,7 @@ import { Range } from 'react-date-range';
 
 import Button from '../Button';
 import Calendar from '../inputs/Calendar';
+import { useState } from 'react';
 
 interface ListingReservationProps {
   price: number;
@@ -11,7 +12,7 @@ interface ListingReservationProps {
   totalPrice: number;
   onChangeDate: (value: Range) => void;
   onSubmit: () => void;
-  disabled?: boolean;
+  isLoading?: boolean;
   disabledDates: Date[];
 }
 
@@ -21,9 +22,12 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   totalPrice,
   onChangeDate,
   onSubmit,
-  disabled,
+  isLoading,
   disabledDates,
 }) => {
+  const [cell, setCell] = useState('');
+  const [cpf, setCpf] = useState('');
+  const missingFields = !cell || !cpf;
   return (
     <div
       className='
@@ -48,8 +52,25 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         onChange={(value) => onChangeDate(value.selection)}
       />
       <hr />
+      <input
+        type='tel'
+        placeholder='Contato'
+        value={cell}
+        onChange={(e) => setCell(e.target.value)}
+      />
+      <input
+        type='text'
+        placeholder='CPF'
+        value={cpf}
+        onChange={(e) => setCpf(e.target.value)}
+      />
+      <hr />
       <div className='p-4'>
-        <Button disabled={disabled} label='Reservar' onClick={onSubmit} />
+        <Button
+          disabled={isLoading || missingFields}
+          label='Reservar'
+          onClick={onSubmit}
+        />
       </div>
       <hr />
       <div
