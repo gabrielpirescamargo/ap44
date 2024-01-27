@@ -7,7 +7,7 @@ import img3 from '../img/ap3.jpg';
 import Image from 'next/image';
 const images = [img1, img2, img3];
 
-export const Slideshow = ({ id }) => {
+export const Slideshow = () => {
   return (
     <div className='slide-container'>
       <Zoom scale={0.4}>

@@ -136,7 +136,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             currentUser={currentUser}
           />
           <div>
-            <Slideshow id={listing.id} />
+            <Slideshow />
           </div>
           <div
             className='
