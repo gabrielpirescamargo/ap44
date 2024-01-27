@@ -67,7 +67,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       <hr /> */}
       <div className='p-4'>
         <Button
-          disabled={isLoading || missingFields}
+          // disabled={isLoading || missingFields}
+          disabled={isLoading}
           label='Reservar'
           onClick={onSubmit}
         />
