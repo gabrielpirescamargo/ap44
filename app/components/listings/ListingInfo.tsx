@@ -68,7 +68,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             text-neutral-500
           '
         >
-          <div>{guestCount} visitantes</div>
+          <div>{guestCount} hóspedes</div>
           <div>{roomCount} quartos</div>
           <div>{bathroomCount} banheiros</div>
         </div>
@@ -86,7 +86,12 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         className='
       text-lg font-light text-neutral-500'
       >
-        {description}
+        <p>🌊 Apartamento na Praia Grande - SP</p>
+        <p>👨‍👩‍👧‍👦 8 hóspedes</p>
+        <p>🚗 1 vaga</p>
+        <p>🛏️ 2 quartos </p>
+        <p>🚽 3 banheiros</p>
+        {/* {description} */}
       </div>
       <hr />
       {/* <Map center={coordinates} /> */}

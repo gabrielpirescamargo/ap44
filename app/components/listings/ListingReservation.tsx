@@ -5,6 +5,7 @@ import { Range } from 'react-date-range';
 import Button from '../Button';
 import Calendar from '../inputs/Calendar';
 import { useState } from 'react';
+import InputMask from 'react-input-mask';
 
 interface ListingReservationProps {
   price: number;
@@ -14,6 +15,12 @@ interface ListingReservationProps {
   onSubmit: () => void;
   isLoading?: boolean;
   disabledDates: Date[];
+  setCpf: (target: String) => void;
+  setCell: (target: String) => void;
+  setName: (target: String) => void;
+  cell: string;
+  cpf: string;
+  name: string;
 }
 
 const ListingReservation: React.FC<ListingReservationProps> = ({
@@ -24,10 +31,14 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   onSubmit,
   isLoading,
   disabledDates,
+  setCpf,
+  setCell,
+  setName,
+  cell,
+  cpf,
+  name,
 }) => {
-  const [cell, setCell] = useState('');
-  const [cpf, setCpf] = useState('');
-  const missingFields = !cell || !cpf;
+  const missingFields = !cell || !cpf || !name;
   return (
     <div
       className='
@@ -51,24 +62,35 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         disabledDates={disabledDates}
         onChange={(value) => onChangeDate(value.selection)}
       />
-      {/* <hr />
-      <input
-        type='tel'
-        placeholder='Contato'
-        value={cell}
-        onChange={(e) => setCell(e.target.value)}
-      />
-      <input
-        type='text'
-        placeholder='CPF'
-        value={cpf}
-        onChange={(e) => setCpf(e.target.value)}
-      />
-      <hr /> */}
+      <div style={{ padding: '0px 20px' }}>
+        <input
+          type='text'
+          placeholder='Nome'
+          className='w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <InputMask
+          mask='(99) 99999-9999'
+          type='tel'
+          className='w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
+          placeholder='Contato'
+          value={cell}
+          onChange={(e) => setCell(e.target.value)}
+        />
+        <InputMask
+          mask='999.999.999-99'
+          className='w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
+          type='tel'
+          placeholder='CPF'
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
+        />
+      </div>
       <div className='p-4'>
         <Button
-          // disabled={isLoading || missingFields}
-          disabled={isLoading}
+          disabled={isLoading || missingFields}
+          // disabled={isLoading}
           label='Reservar'
           onClick={onSubmit}
         />

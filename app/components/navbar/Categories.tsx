@@ -24,7 +24,7 @@ export const categories = [
   {
     label: 'Praia',
     icon: TbBeach,
-    description: 'Essa propriedade é proxima da praia!',
+    description: 'Essa propriedade é 100m da praia!',
   },
   // {
   //   label: 'Windmills',

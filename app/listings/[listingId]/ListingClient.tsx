@@ -62,6 +62,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+  const [cell, setCell] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [name, setName] = useState('');
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -75,19 +78,35 @@ const ListingClient: React.FC<ListingClientProps> = ({
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
         listingId: listing?.id,
+        cpf,
+        name,
+        cell,
       })
       .then(() => {
-        toast.success('Listing reserved!');
+        toast.success('Reservado com sucesso!');
         setDateRange(initialDateRange);
+        setCpf('');
+        setName('');
+        setCell('');
         router.push('/trips');
       })
       .catch(() => {
-        toast.error('Something went wrong.');
+        toast.error('Erro.');
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, [totalPrice, dateRange, listing?.id, router, currentUser, loginModal]);
+  }, [
+    totalPrice,
+    dateRange,
+    listing?.id,
+    router,
+    currentUser,
+    loginModal,
+    cpf,
+    cell,
+    name,
+  ]);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -118,7 +137,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       setTotalPrice(totalPrice);
     }
   }, [dateRange, listing.price]);
-  console.log(listing);
+
   return (
     <Container>
       <div
@@ -166,6 +185,12 @@ const ListingClient: React.FC<ListingClientProps> = ({
             >
               <ListingReservation
                 price={listing.price}
+                setCpf={setCpf}
+                setCell={setCell}
+                setName={setName}
+                cell={cell}
+                cpf={cpf}
+                name={name}
                 totalPrice={totalPrice}
                 onChangeDate={(value) => setDateRange(value)}
                 dateRange={dateRange}
