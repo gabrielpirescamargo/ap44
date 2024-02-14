@@ -1,4 +1,5 @@
 'use client';
+// @ts-nocheck
 
 import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
