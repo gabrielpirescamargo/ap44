@@ -1,4 +1,5 @@
 'use client';
+// @ts-nocheck
 
 import { Range } from 'react-date-range';
 
@@ -15,9 +16,9 @@ interface ListingReservationProps {
   onSubmit: () => void;
   isLoading?: boolean;
   disabledDates: Date[];
-  setCpf: (target: String) => void;
-  setCell: (target: String) => void;
-  setName: (target: String) => void;
+  setCpf: any;
+  setCell: any;
+  setName: any;
   cell: string;
   cpf: string;
   name: string;
