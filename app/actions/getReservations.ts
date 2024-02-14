@@ -1,7 +1,6 @@
-/* eslint-disable no-alert */
-
 import prisma from '@/app/libs/prismadb';
 import { SafeReservation } from '../types';
+// @ts-ignore
 
 interface IParams {
   listingId?: string;
