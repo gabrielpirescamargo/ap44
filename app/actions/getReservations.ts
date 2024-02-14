@@ -39,9 +39,9 @@ export default async function getReservations(params: IParams) {
       createdAt: reservation.createdAt.toISOString(),
       startDate: reservation.startDate.toISOString(),
       endDate: reservation.endDate.toISOString(),
-      cell: reservation?.cell,
-      cpf: reservation?.cpf,
-      name: reservation?.name,
+      cell: reservation?.cell ? reservation?.cell : undefined,
+      cpf: reservation?.cpf ? reservation?.cpf : undefined,
+      name: reservation?.name ? reservation?.name : undefined,
       listing: {
         ...reservation.listing,
         createdAt: reservation.listing.createdAt.toISOString(),
